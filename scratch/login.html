@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Scratch</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" media="screen" href="./css/bootstrap.min.css">
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="./css/custom.css">
+
+	<!-- Font Roboto -->
+	<link href="./css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+	<style>
+		.header{
+			background: #5cb85c;
+		}
+	</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="header">
+				<div class="header-info">
+					<p class="title">Scratch</p>
+					<p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+				</div>
+			</div>
+		</div>
+		<div class="row content">
+			<div class="col-md-8">
+				<legend>Categories</legend>
+				<!-- Start looping here -->
+				<div class="header-category" style="background-color: #2196f3;">
+					<div class="header-category-info">
+						<a href="sub-category.html" class="title">General</a>
+						<p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+					</div>
+				</div>
+
+				<div class="header-category" style="background-color: #455a64;">
+					<div class="header-category-info">
+						<a href="sub-category.html" class="title">Scratch</a>
+						<p class="desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+					</div>
+				</div>
+				<!-- End looping -->
+				<center>
+					<ul class="pagination">
+						<li><a href="#">&laquo;</a></li>
+						<li class="active"><a>1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						<li><a href="#">&raquo;</a></li>
+					</ul>
+				</center>
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-3 container-sidebar">
+				<!-- Login Box -->
+				<div class="login-box">
+					<form action="index.php" method="POST" role="login">
+						<legend>
+							Login
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Username">
+							</div>
+							<div class="form-group">
+								<input type="password" class="form-control" placeholder="Password">
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary" style="width: 100%">Login</button>
+							</div>
+						</legend>
+					</form>
+				</div>
+				<!-- End of Login Box -->
+				<!-- Search Box -->
+				<div class="search-box">
+					<form action="index.php" method="POST" role="search">
+						<legend>
+							<div class="form-group">
+								<div class="form-group">
+									<div class="input-group ">
+										<input type="search" class="form-control" placeholder="Search parameter">
+										<a href="#" type="submit" class="input-group-addon"><i class="glyphicon glyphicon-search"></i></a>
+									</div>
+								</div>
+							</div>
+						</legend>
+					</form>
+				</div>
+				<!-- End of Search Box -->
+				<a href="./category-new.html" class="btn btn-success col-md-12">New Category</a>
+			</div>
+		</div>
+	</div>
+	<script src="./js/jquery.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+</body>
+</html>

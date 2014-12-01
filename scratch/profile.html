@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Scratch</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" media="screen" href="./css/bootstrap.min.css">
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="./css/custom.css">
+
+	<!-- Font Roboto -->
+	<link href="./css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+	<style>
+		.header{
+			background: #5cb85c;
+		}
+		.nav-tabs{
+		}
+		.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus{
+			border: 5px solid #eee;
+			border-right: 0px; border-left: 0px; border-top: 0px;
+			border-bottom-color: #fff;
+			background: #eee;
+		}
+		.nav-tabs>li>a{
+			border-radius: 0px;
+		}
+		.nav-tabs>li>a:hover{
+			border-color: #eee #eee #eee;
+
+			background: rgba(255,255,255,0.7);
+		}
+	</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="header">
+				<div class="header-info">
+					<p class="title">AuliaYF</p>
+					<p class="desc">- auliayf@gmail.com</p>
+				</div>
+				<div class="navbar">
+					<a href="./index.html">Home</a>
+					<a href="./profile.html">Setting</a>
+					<a href="./profile-view.html">Profile</a>
+					<a href="#">About</a>
+				</div>
+			</div>
+		</div>
+		<div class="row content">
+			<div class="col-md-8 paper-shadow-bottom-z-1" style="background: #eee;">
+				<ul class="nav nav-tabs" role="tablist" id="myTab">
+					<li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+					<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+				</ul>
+
+				<div class="tab-content" style="padding: 16px;">
+					<div role="tabpanel" class="tab-pane active" id="home">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, laboriosam et omnis eligendi aliquam saepe at porro numquam corporis dolorum veniam, eius voluptas temporibus iure? Distinctio quidem blanditiis, voluptates voluptatibus.
+						</p>
+					</div>
+					<div role="tabpanel" class="tab-pane" id="settings">
+						<form action="">
+							<div class="form-group">
+								<label for="">Username</label>
+								<input type="text" class="form-control" name="username" value="AuliaYF">
+							</div>
+							<div class="form-group">
+								<label for="">Email</label>
+								<input type="text" class="form-control" name="email" value="auliayf@gmail.com">
+							</div>
+							<div class="form-group">
+								<label for="">Password</label>
+								<input type="text" class="form-control" name="password">
+							</div>
+							<div class="form-group">
+								<label for="">Welcome text</label>
+								<textarea class="form-control" name="welcome_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste, laboriosam et omnis eligendi aliquam saepe at porro numquam corporis dolorum veniam, eius voluptas temporibus iure? Distinctio quidem blanditiis, voluptates voluptatibus.</textarea>
+							</div>
+							<div class="form-group">
+								<label for="">Header Background</label>
+								<input type="color" class="form-control" name="header_background" value="#5cb85c">
+							</div>
+							<section class="row"><h3 class="hidden">Save</h3>
+								<div class="col-md-12">
+									<div class="pull-right">
+										<input type="submit" name="submit" class="btn btn-success" value="Save"></button>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+							</section>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+			<div class="col-md-3 container-sidebar">
+				<legend>Logged in as AuliaYF</legend>
+				<legend><a href="#" class="btn btn-danger" style="width: 100%;">Logout</a></legend>
+			</div>
+		</div>
+	</div>
+	<script src="./js/jquery.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+
+	<script>
+		$(function () {
+			$('#myTab a:first').tab('show')
+		})
+	</script>
+</body>
+</html>
