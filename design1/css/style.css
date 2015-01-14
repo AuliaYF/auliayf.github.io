@@ -1,0 +1,50 @@
+.sidebar-brand{
+	padding: 16px;
+}
+.img-circular{
+	-webkit-background-size: cover;
+	background-size: cover;
+	display: block;
+	
+	margin-right: auto;
+	margin-left: auto;
+	
+	margin-bottom: 16px;
+
+	border-radius: 50%;
+}
+.head{
+	background-color: #2196F3;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.head > p{
+	margin: 0;
+	margin-top: -2px;
+	font-size: 22px;
+	color: #FFF;
+}
+.menu-btn{
+	margin-top: 6px;
+	float: left;
+	margin-right: 16px;
+}
+.icon-bar{
+	display: block;
+	width: 22px;
+	height: 2px;
+	border-radius: 1px;
+	background-color: #FFF;
+}
+.icon-bar+.icon-bar{
+	margin-top: 4px;
+}
+@media(max-width:768px) {
+    .head > p{
+        margin-top: -2px;
+    }
+    .menu-btn{
+        margin-top: 8px;
+        float: left;
+    }
+}
