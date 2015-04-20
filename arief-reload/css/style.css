@@ -1,0 +1,19 @@
+body{
+	background-color: #fcfcfc;
+}
+.nav{
+	background-color: #03A9F4;
+}
+.content{
+	padding: 8px;
+	background-color: #eee;
+}
+.content-text{
+	text-align: justify;
+}
+.below{
+	margin-top: 8px;
+}
+.brand-logo{
+	margin-left: 16px;
+}

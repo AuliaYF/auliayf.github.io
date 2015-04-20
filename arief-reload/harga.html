@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Daftar Harga | Arief Reload</title>
+
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="./css/materialize.min.css"  media="screen,projection"/>
+	
+	<link rel="stylesheet" href="./css/style.css">
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+</head>
+<body>
+	<nav class="nav">
+		<div class="nav-wrapper">
+			<a href="index.html" class="brand-logo">Arief Reload</a>
+			<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+			<ul class="right hide-on-med-and-down">
+				<li><a href="harga.html">Daftar Harga</a></li>
+				<li><a href="transaksi.html">Transaksi</a></li>
+				<li><a href="about.html">Tentang Kami</a></li>
+			</ul>
+			<ul class="side-nav" id="mobile-demo">
+				<li><a href="harga.html">Daftar Harga</a></li>
+				<li><a href="transaksi.html">Transaksi</a></li>
+				<li><a href="about.html">Tentang Kami</a></li>
+			</ul>
+		</div>
+	</nav>
+	
+	<div class="row">
+		<div class="col s12 m9">
+			<div class="card-panel white">
+				<span class="black-text">
+					<h3>Daftar Harga</h3>
+					Arief Reload memberikan harga yang terbaik untuk anda.
+				</span>
+			</div>
+			<div class="card-panel white">
+				<span class="black-text">
+					<h5>Telkomsel</h5>
+					<table>
+						<thead>
+							<tr>
+								<th data-field="id">Name</th>
+								<th data-field="name">Item Name</th>
+								<th data-field="price">Item Price</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td>Alvin</td>
+								<td>Eclair</td>
+								<td>$0.87</td>
+							</tr>
+							<tr>
+								<td>Alan</td>
+								<td>Jellybean</td>
+								<td>$3.76</td>
+							</tr>
+							<tr>
+								<td>Jonathan</td>
+								<td>Lollipop</td>
+								<td>$7.00</td>
+							</tr>
+						</tbody>
+					</table>
+				</span>
+			</div>
+			<div class="card-panel white">
+				<span class="black-text">
+					<h5>Three</h5>
+					<table>
+						<thead>
+							<tr>
+								<th data-field="id">Name</th>
+								<th data-field="name">Item Name</th>
+								<th data-field="price">Item Price</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td>Alvin</td>
+								<td>Eclair</td>
+								<td>$0.87</td>
+							</tr>
+							<tr>
+								<td>Alan</td>
+								<td>Jellybean</td>
+								<td>$3.76</td>
+							</tr>
+							<tr>
+								<td>Jonathan</td>
+								<td>Lollipop</td>
+								<td>$7.00</td>
+							</tr>
+						</tbody>
+					</table>
+				</span>
+			</div>
+		</div>
+		<div class="col m3 s12 hide-on-small-only">
+			<div class="row">
+				<h4>Center</h4>
+				<div class="card-panel white">
+					<span class="black-text">
+						08**********
+					</span>
+				</div>
+				<div class="card-panel white">
+					<span class="black-text">
+						08**********
+					</span>
+				</div>
+				<div class="card-panel white">
+					<span class="black-text">
+						08**********
+					</span>
+				</div>
+			</div>
+			<div class="row">
+				<h4>Berita</h4>
+				<div class="card-panel white">
+					<span class="black-text">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua.
+					</span>
+				</div>
+				<div class="card-panel white">
+					<span class="black-text">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua.
+					</span>
+				</div>
+				<div class="card-panel white">
+					<span class="black-text">
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua.
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--Import jQuery before materialize.js-->
+	<script type="text/javascript" src="./js/jquery.min.js"></script>
+	<script type="text/javascript" src="./js/materialize.min.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".button-collapse").sideNav();
+		});
+	</script>
+</body>
+</html>
