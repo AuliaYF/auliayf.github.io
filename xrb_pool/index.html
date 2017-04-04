@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>XRB Pool</title>
+	<!-- Latest compiled and minified CSS & JS -->
+	<link rel="stylesheet" href="./css/bootstrap.min.css">
+	<script src="//code.jquery.com/jquery.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	<style type="text/css">
+		.navbar-header {
+			float: left;
+			padding: 15px;
+			text-align: center;
+			width: 100%;
+		}
+		.navbar-brand {float:none;}
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-default" role="navigation">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">XRB Pool</a>
+			</div>
+		</div>
+	</nav>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-6 col-xs-12 col-md-offset-3">
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-12 col-xs-12">
+							<input type="text" class="form-control" id="ask_address" value="xrb_174nh1jbck4aqar45bdnsuwgodchobr5o1x4mf6kqapzomf7gy5ytkwo3hx7">
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-12 col-xs-12">
+							<button id="claimButton" class="g-recaptcha btn btn-primary btn-lg col-md-12 col-xs-12" data-sitekey="6LeEJxQUAAAAAMo9hNkAvl-lsVdY5xL6CATu9TnA" data-callback="onClaim">Claim</button>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-3 col-xs-3">
+							<input type="number" class="form-control" id="currWindow" value="1">
+							<span class="help-block">Current Tab</span>
+						</div>
+						<div class="col-md-3 col-xs-3">
+							<input type="number" class="form-control" id="maxWindow" value="1">
+							<span class="help-block">Maximum Window</span>
+						</div>
+						<div class="col-md-3 col-xs-3">
+							<input type="number" class="form-control" id="interval" value="60">
+							<span class="help-block">Interval in seconds</span>
+						</div>
+						<div class="col-md-3 col-xs-3">
+							<button id="stateButton" class="btn btn-primary col-md-12 col-xs-12">Start</button>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-12">
+							<p class="text-center"><b>By using this tool, you are agreed to donate to RaiBlocks's dev.</b></p>
+							<p class="text-center">If you enjoy this tool, please consider donating to here: <b>1P9no5Gqg3o6upzXHz9eXDNXXSnXHScBZ1</b></p>
+							<p class="text-center"><b>DO NOT share this to anyone, even to your closest friends. If you have access to this tool, it means that i trusted you.</b></p>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-xs-6">
+							<label>
+								<h4>
+									Next validation in: <span id="sec" class="label label-default">??</span> seconds
+								</h4>
+							</label>
+						</div>
+						<div class="col-xs-3">
+							<label><h4>Pending <span id="pendingClaim" class="label label-warning">0</span></h4></label>
+						</div>
+						<div class="col-xs-3">
+							<label><h4>Validated <span id="validatedClaim" class="label label-success">0</span></h4></label>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div id="validateHistory" class="col-xs-12" style="padding-top: 10px; overflow-x: hidden; max-height: 150px;">
+	
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var state = false;
+		var interval = 60;
+		var curr = interval;
+		var cuclaims = 0; var prclaims = 0; var validclaims = 0;
+		var captchas = [];
+
+		function doTick(){
+			if(state){
+				$("#sec").html(curr);
+				curr--;
+
+				if(curr == -1){
+					onFlush();
+					curr = interval;
+				}
+			}
+		}
+
+		function onClaim(token){
+			$("#claimButton").prop("disabled",true);   
+
+			captchas.push( grecaptcha.getResponse() );
+			cuclaims = captchas.length;
+
+			$("#claimButton").prop("disabled",false);
+
+			$("#pendingClaim").text( cuclaims );
+
+			$( "#claimButton" ).trigger( "click" );
+		}
+
+		Date.prototype.today = function () { 
+			return ((this.getDate() < 10)?"0":"") + this.getDate() +"/"+(((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) +"/"+ this.getFullYear();
+		}
+
+		Date.prototype.timeNow = function () {
+			return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
+		}
+
+		var flushCount = 0;
+		var currentWindow = 0;
+		var maxWindow = 1;
+		function onFlush(){
+			if(flushCount == currentWindow){
+
+				if( cuclaims > 0 ){
+					var newDate = new Date();
+
+					var ask_address = '';
+					var donate = '1';
+
+					prclaims = cuclaims;
+
+					$.ajax({
+						type: "POST",
+						url: "https://raiblockscommunity.net/faucet/elaborate.php",
+						dataType : "JSON",
+						data: "ask_address=" + ask_address + "&donate=" + donate + "&captchas=" + JSON.stringify( captchas ) + "&accepted=1",
+						success: function(data){
+
+							cuclaims = cuclaims - prclaims;
+							captchas = captchas.slice( prclaims, captchas.length );
+
+							$("#pendingClaim").text( captchas.length );
+
+							if(data.error == "no"){
+								validclaims += data.valid;
+								$("#validatedClaim").text(validclaims);
+								$("#validateHistory").prepend("<p class='text-center'>" + newDate.today() + "  " + newDate.timeNow() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + data.valid + " claims&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color: green'>OK!</span></p>");
+							}else{
+								$("#validateHistory").prepend("<p class='text-center'>" + newDate.today() + "  " + newDate.timeNow() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + data.error + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color: red'>FAIL!</span></p>");
+							}
+						},
+						error: function(data){
+							$("#validateHistory").prepend("<p class='text-center'>" + newDate.today() + "  " + newDate.timeNow() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Trouble processing claims.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color: red'>FAIL!</span></p>");
+						}
+					});
+				}
+			}
+			if(flushCount == (maxWindow-1)){
+				flushCount = 0;
+				return;
+			}
+
+			flushCount++;
+		}
+
+		$(document).ready(function(){
+			setInterval(doTick, 1000);
+
+			$("#stateButton").click(function(e){
+				e.preventDefault();
+				interval = $("#interval").val();
+				if(state){
+					$(this).html("Start");
+					state = false;
+					$("#currWindow").prop("disabled", false);
+					$("#maxWindow").prop("disabled", false);
+					$("#interval").prop("disabled", false);
+				}else{
+					$(this).html("Stop");
+					$("#currWindow").prop("disabled", true);
+					$("#maxWindow").prop("disabled", true);
+					$("#interval").prop("disabled", true);
+					currentWindow = ($("#currWindow").val()-1);
+					maxWindow = $("#maxWindow").val();
+					state = true;
+					$("#claimButton").trigger( "click" );
+				}
+				curr = interval;
+				$("#sec").html(curr);
+			});
+
+			$("#claimButton").click(function(){
+				grecaptcha.reset();
+			});
+		});
+	</script>
+</body>
+</html>
