@@ -5,7 +5,7 @@
 	<title>XRB Pool</title>
 	<!-- Latest compiled and minified CSS & JS -->
 	<link rel="stylesheet" href="./css/bootstrap.min.css">
-	<script src="//code.jquery.com/jquery.js"></script>
+	<script src="./js/jquery.js"></script>
 	<script src="./js/bootstrap.min.js"></script>
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	<style type="text/css">
@@ -104,13 +104,16 @@
 		var curr = interval;
 		var cuclaims = 0; var prclaims = 0; var validclaims = 0;
 		var captchas = [];
+		var flushCount = 0;
+		var currentWindow = 0;
+		var maxWindow = 1;
 
 		function doTick(){
 			if(state){
 				$("#sec").html(curr);
 				curr--;
 
-				if(curr == -1){
+				if(curr < 0){
 					onFlush();
 					curr = interval;
 				}
@@ -125,9 +128,9 @@
 
 			$("#claimButton").prop("disabled",false);
 
-			$("#pendingClaim").text( cuclaims );
+			$("#pendingClaim").text(cuclaims);
 
-			$( "#claimButton" ).trigger( "click" );
+			$("#claimButton").trigger("click");
 		}
 
 		Date.prototype.today = function () { 
@@ -138,9 +141,6 @@
 			return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
 		}
 
-		var flushCount = 0;
-		var currentWindow = 0;
-		var maxWindow = 1;
 		function onFlush(){
 			if(flushCount == currentWindow){
 
@@ -206,7 +206,7 @@
 					currentWindow = ($("#currWindow").val()-1);
 					maxWindow = $("#maxWindow").val();
 					state = true;
-					$("#claimButton").trigger( "click" );
+					$("#claimButton").trigger("click");
 				}
 				curr = interval;
 				$("#sec").html(curr);
