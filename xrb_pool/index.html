@@ -33,7 +33,7 @@
 				<div class="form-group">
 					<div class="row">
 						<div class="col-md-12 col-xs-12">
-							<input type="text" class="form-control" id="ask_address" value="xrb_174nh1jbck4aqar45bdnsuwgodchobr5o1x4mf6kqapzomf7gy5ytkwo3hx7">
+							<input type="text" class="form-control text-center" id="ask_address" value="xrb_174nh1jbck4aqar45bdnsuwgodchobr5o1x4mf6kqapzomf7gy5ytkwo3hx7" placeholder="Your RaiBlocks Account">
 						</div>
 					</div>
 				</div>
@@ -75,50 +75,27 @@
 				<div class="form-group">
 					<div class="row">
 						<div class="col-xs-6">
-							<label>
-								<h4>
-									Next validation in: <span id="sec" class="label label-default">??</span> seconds
-								</h4>
-							</label>
+							<div id="response" class="alert text-center" role="alert" style="display: none;">
+							asd
+							</div>
 						</div>
-						<div class="col-xs-3">
+						<div class="col-xs-3" style="padding-top: 4px;">
 							<label><h4>Pending <span id="pendingClaim" class="label label-warning">0</span></h4></label>
 						</div>
-						<div class="col-xs-3">
+						<div class="col-xs-3" style="padding-top: 4px;">
 							<label><h4>Validated <span id="validatedClaim" class="label label-success">0</span></h4></label>
 						</div>
-					</div>
-				</div>
-
-				<div class="row">
-					<div id="validateHistory" class="col-xs-12" style="padding-top: 10px; overflow-x: hidden; max-height: 150px;">
-	
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 	<script type="text/javascript">
-		var state = false;
-		var interval = 60;
-		var curr = interval;
 		var cuclaims = 0; var prclaims = 0; var validclaims = 0;
 		var captchas = [];
 		var flushCount = 0;
 		var currentWindow = 0;
 		var maxWindow = 1;
-
-		function doTick(){
-			if(state){
-				$("#sec").html(curr);
-				curr--;
-
-				if(curr < 0){
-					onFlush();
-					curr = interval;
-				}
-			}
-		}
 
 		function onClaim(token){
 			$("#claimButton").prop("disabled",true);   
@@ -131,14 +108,6 @@
 			$("#pendingClaim").text(cuclaims);
 
 			$("#claimButton").trigger("click");
-		}
-
-		Date.prototype.today = function () { 
-			return ((this.getDate() < 10)?"0":"") + this.getDate() +"/"+(((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) +"/"+ this.getFullYear();
-		}
-
-		Date.prototype.timeNow = function () {
-			return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
 		}
 
 		function onFlush(){
@@ -158,22 +127,21 @@
 						dataType : "JSON",
 						data: "ask_address=" + ask_address + "&donate=" + donate + "&captchas=" + JSON.stringify( captchas ) + "&accepted=1",
 						success: function(data){
-
-							cuclaims = cuclaims - prclaims;
-							captchas = captchas.slice( prclaims, captchas.length );
-
-							$("#pendingClaim").text( captchas.length );
-
 							if(data.error == "no"){
+								cuclaims = cuclaims - prclaims;
+								captchas = captchas.slice( prclaims, captchas.length );
+
+								$("#pendingClaim").text( captchas.length );
+
 								validclaims += data.valid;
 								$("#validatedClaim").text(validclaims);
-								$("#validateHistory").prepend("<p class='text-center'>" + newDate.today() + "  " + newDate.timeNow() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + data.valid + " claims&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color: green'>OK!</span></p>");
+								$("#response").css('display', 'block').removeClass('alert-danger').addClass('alert-success').html("<b>" + data.valid + "</b> of <b>" + prclaims + "</b> validated");
 							}else{
-								$("#validateHistory").prepend("<p class='text-center'>" + newDate.today() + "  " + newDate.timeNow() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + data.error + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color: red'>FAIL!</span></p>");
+								$("#response").css('display', 'block').removeClass('alert-success').addClass('alert-danger').html("<b>" + data.error + "</b>");
 							}
 						},
 						error: function(data){
-							$("#validateHistory").prepend("<p class='text-center'>" + newDate.today() + "  " + newDate.timeNow() + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Trouble processing claims.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style='color: red'>FAIL!</span></p>");
+							$("#response").css('display', 'block').removeClass('alert-success').addClass('alert-danger').html("<b>Trouble processing claims.</b>");
 						}
 					});
 				}
@@ -187,29 +155,29 @@
 		}
 
 		$(document).ready(function(){
-			setInterval(doTick, 1000);
 
 			$("#stateButton").click(function(e){
 				e.preventDefault();
 				interval = $("#interval").val();
-				if(state){
+				if($(this).html() == "Stop"){
 					$(this).html("Start");
-					state = false;
+
 					$("#currWindow").prop("disabled", false);
 					$("#maxWindow").prop("disabled", false);
 					$("#interval").prop("disabled", false);
 				}else{
 					$(this).html("Stop");
+					$(this).prop("disabled", true);
 					$("#currWindow").prop("disabled", true);
 					$("#maxWindow").prop("disabled", true);
 					$("#interval").prop("disabled", true);
 					currentWindow = ($("#currWindow").val()-1);
 					maxWindow = $("#maxWindow").val();
-					state = true;
+
+					setInterval(onFlush, interval * 1000);
+
 					$("#claimButton").trigger("click");
 				}
-				curr = interval;
-				$("#sec").html(curr);
 			});
 
 			$("#claimButton").click(function(){
